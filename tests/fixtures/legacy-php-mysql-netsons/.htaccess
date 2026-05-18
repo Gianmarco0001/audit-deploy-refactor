@@ -1,0 +1,9 @@
+# NB: questo .htaccess e' INTENZIONALMENTE INCOMPLETO per testare audit-hosting / audit-security
+# Bug attesi:
+# - Non blocca accesso a .env o config.php
+# - Non forza HTTPS
+# - Non imposta security headers
+# - mod_rewrite presente ma senza protezioni
+
+RewriteEngine On
+RewriteRule ^(.*)$ index.php [QSA,L]

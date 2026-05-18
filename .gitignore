@@ -1,0 +1,18 @@
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Test fixture: ignora eventuali output run di test
+tests/fixtures/legacy-php-mysql-netsons/uploads/
+tests/fixtures/legacy-php-mysql-netsons/vendor/
+tests/fixtures/legacy-php-mysql-netsons/composer.lock
+AUDIT-REPORT*.md
+FINAL-AUDIT-REPORT.md

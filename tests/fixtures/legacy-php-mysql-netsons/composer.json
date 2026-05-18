@@ -1,0 +1,14 @@
+{
+  "name": "legacy/php-mysql-netsons-fixture",
+  "description": "Mini fixture PHP 8.x + MySQL su Netsons per test non-regression audit-deploy-pack. Contiene bug intenzionali noti.",
+  "type": "project",
+  "require": {
+    "php": ">=8.1",
+    "phpmailer/phpmailer": "^6.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Fixture\\": "src/"
+    }
+  }
+}
