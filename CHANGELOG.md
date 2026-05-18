@@ -4,6 +4,57 @@ Tutti i cambiamenti notevoli del plugin sono documentati qui.
 
 Il formato si basa su [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) e il versioning segue [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] — 2026-05
+
+### Sub-file stub → checklist complete validate su doc ufficiali
+
+I 13 sub-file che in v2.0 erano stub `TODO contributi benvenuti` sono ora **checklist operative complete** (~30-70 bullet ciascuna), validate su documentazione ufficiale ufficiale.
+
+### Filled
+
+**Backend stack-specific** (`skills/audit-backend/checklists/`):
+
+- **`node.md`** — Validato su <https://nodejs.org/en/learn/getting-started/security-best-practices> e Express security best practices. Copre: runtime LTS, HTTP server hardening anti-DoS, debug inspector, dependency supply chain, secrets, crypto timingSafeEqual, Buffer safety, prototype pollution defense, Permission Model (Node 20.10+), middleware essenziali (helmet, compression, body-parser, CORS, rate-limit).
+- **`python.md`** — Validato su Django Deployment Checklist ufficiale <https://docs.djangoproject.com/en/stable/howto/deployment/checklist/> + FastAPI/Flask deployment docs. Copre: Django settings (SECRET_KEY, DEBUG, HSTS, secure headers), FastAPI CORS/Pydantic strict, Flask Talisman/Limiter, SQLAlchemy N+1, password hashing argon2.
+- **`go.md`** — Validato su <https://go.dev/doc/security/best-practices>. Copre: govulncheck, race detector, http.Server timeouts (ReadHeaderTimeout anti-Slowloris), context propagation, html/template vs text/template, fuzzing Go 1.18+, build flags CGO_ENABLED=0 / -trimpath / -ldflags.
+- **`frameworks/symfony.md`** — Validato su <https://symfony.com/doc/current/security.html>. Copre: firewalls, password_hashers, authentication methods (form_login/json_login/HTTP Basic), login_throttling anti-brute-force, access_control + role_hierarchy + #[IsGranted], Voters per-resource, CSRF, session security, security headers via Nelmio bundle, switch_user audit.
+- **`frameworks/codeigniter.md`** — Validato su <https://codeigniter4.github.io/userguide/concepts/security.html>. Copre: Security::csrfProtection, esc() helper, Query Builder vs raw, Validation Library, Encryption::$key, Session DatabaseHandler/RedisHandler, Cookies secure/httponly/samesite, SecureHeaders filter, ContentSecurityPolicy config.
+
+**Database engine-specific** (`skills/audit-database/checklists/`):
+
+- **`postgres.md`** — Validato su <https://www.postgresql.org/docs/current/runtime-config.html>. Copre: listen_addresses, ssl=on + scram-sha-256 pg_hba.conf, RBAC least privilege, RLS multi-tenancy, shared_buffers/work_mem tuning, WAL + archive_mode PITR, autovacuum, pg_stat_statements, statement_timeout, PgBouncer, JSONB GIN indexing.
+- **`sqlite.md`** — Validato su <https://www.sqlite.org/security.html>. Copre: PRAGMAs essenziali (foreign_keys, journal_mode=WAL, busy_timeout), Defensive mode per untrusted DB, resource limits per anti-DoS su input non fidato, single-writer constraint, backup API, SQLCipher per encryption at rest.
+- **`mongo.md`** — Validato su <https://www.mongodb.com/docs/manual/administration/security-checklist/>. Copre: security.authorization, SCRAM-SHA-256, RBAC built-in roles, bindIp + clusterIpSourceAllowlist, requireTLS, encryption at rest WiredTiger, --noscripting, $jsonSchema validation, CVE-2025-23061 Mongoose < 8.9.5, Queryable Encryption 8.0+.
+
+**Hosting profiles** (`skills/audit-hosting/checklists/`):
+
+- **`vercel.md`** — Validato su <https://vercel.com/docs/security> + <https://vercel.com/docs/limits>. Copre: env vars scope, Edge vs Node Runtime, function limits (size 50MB/250MB, memory, duration), Vercel Firewall WAF + DDoS, CVE-2025-29927 Next.js middleware bypass (versioni minime), Image Optimization domains whitelist, ISR revalidation, Cron Jobs signature validation, Deployment Protection, build limits 45min/15k files, log retention.
+- **`railway.md`** — Validato su <https://docs.railway.com/overview/best-practices>. Copre: service/shared/reference variables, environments (production/staging/preview), healthcheck, build Nixpacks vs Dockerfile, resource limits, private networking <service>.railway.internal, database addons, volume persistence, cron jobs, custom domains + SSL automatico, replica scaling, static IPs.
+- **`aruba.md`** — Validato su Plesk Administrator Guide + Plesk Customer Guide locali. Copre: PHP via Plesk (display_errors, expose_php, open_basedir, disable_functions, opcache), SSL Let's Encrypt + HSTS, ModSecurity + Fail2Ban, Backup Manager + remote storage, Mail antispam (SpamAssassin, DKIM, SPF, DMARC, greylisting), Database (no wildcard user, SSL), File permissions + chroot, Apache/nginx hardening, DNS + DNSSEC + CAA, Cron via Scheduled Tasks, Plesk admin security (MFA, password policy). + tabella confronto Aruba (Plesk) vs Netsons (cPanel).
+
+**Email transports** (`skills/audit-email/checklists/`):
+
+- **`node-nodemailer.md`** — Validato su <https://nodemailer.com/>. Copre: pool transport, auth env vars, secure 465 / requireTLS 587, tls.rejectUnauthorized obbligatorio, transport.verify() boot, async/await pattern, retry 4xx/no-retry 5xx, header injection prevention, DKIM signing inline, direct transport NO in prod, AWS SES alternativa.
+- **`smtp-external.md`** — Validato su:
+  - AWS SES: <https://docs.aws.amazon.com/ses/latest/dg/security-best-practices.html> (IAM least privilege, sandbox vs prod, Verified Identities, SPF/DKIM/DMARC/MAIL FROM custom, Configuration Set, bounce/complaint webhook SNS, Reputation Dashboard, regions EU per GDPR)
+  - SendGrid (Twilio): 3 doc ufficiali — API Keys management (lifecycle, scope, 100 limit, 69 char, no recovery), Domain Authentication (4 CNAME, Automated vs Manual Security, EU-pinned, Link Branding), Event Webhook signed ECDSA (HMAC + timestamp anti-replay, 11 event types, sg_event_id dedup, bounce categorization)
+  - Mailgun: doc locale `documentation.mailgun.com` (API v3/v4, EU vs US endpoint, retry policy 48h, IP pool warmup, tags, validate endpoint, List-Unsubscribe app-side)
+  - Postmark: doc locale `postmarkapp.com/developer` (Server vs Account Token, rate 100 req/s, Message Streams Transactional vs Broadcast, DKIM rotation, Templates no-versioning, bounce types HardBounce/Transient/Subscribed, Activity API retention 45 giorni)
+  - Brevo (ex Sendinblue): <https://developers.brevo.com/docs/getting-started> (REST API v3 vs SMTP, dedicated IP > 100k/mese, DPA GDPR, data residency EU, Suppression List API, free tier 300/giorno)
+
+### Changed
+
+- README aggiornato: rimossi badge `🚧 Stub TODO v2.1` per gli stack ora completi (Node, Python, Go, Symfony, CodeIgniter, Postgres, SQLite, MongoDB, Aruba, Vercel, Railway, Nodemailer, SES/SendGrid/Mailgun/Postmark/Brevo).
+- CHANGELOG aggiornato con dettaglio fonte validazione per ogni file.
+
+### Disclaimer di trasparenza
+
+- Date EOL versioni (Node 18 Apr 2025, Postgres 13 Nov 2025, ecc.) sono dalla knowledge cutoff: re-verificate periodicamente.
+- Versioni "current latest" indicate al momento della stesura (Postgres 17, Mongo 8, Symfony 7, Django 5.2, Laravel 13.x).
+- Le checklist sono derivate da doc ufficiali, NON testate end-to-end su tutti i possibili progetti reali. Spot-check raccomandato su un campione di bullet PRIMA di affidare audit critici al plugin.
+
+---
+
 ## [2.0.0] — 2026-05
 
 ### Compatibilità retro 100% per utenti PHP+MySQL+Netsons

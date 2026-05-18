@@ -23,41 +23,45 @@ Tutti insieme via orchestrator: `/audit-deploy`
 
 ### Linguaggio backend
 
-| Marker | Stack | Status v2.0 |
+| Marker | Stack | Status v2.1 |
 |--------|-------|-------------|
 | `composer.json` | PHP | ✅ Completo |
 | `composer.json` + `laravel/framework` | Laravel 13.x (+ L10/L11/L12) | ✅ Completo |
-| `composer.json` + `symfony/framework-bundle` | Symfony | 🚧 Stub TODO v2.1 |
-| `composer.json` + `codeigniter4/framework` | CodeIgniter | 🚧 Stub TODO v2.1 |
-| `package.json` | Node.js | 🚧 Stub TODO v2.1 |
-| `pyproject.toml` / `requirements.txt` | Python | 🚧 Stub TODO v2.1 |
-| `go.mod` | Go | 🚧 Stub TODO v2.1 |
+| `composer.json` + `symfony/framework-bundle` | Symfony 7.x | ✅ Completo |
+| `composer.json` + `codeigniter4/framework` | CodeIgniter 4.x | ✅ Completo |
+| `package.json` | Node.js (LTS 22.x / 20.x) | ✅ Completo |
+| `pyproject.toml` / `requirements.txt` | Python (Django / FastAPI / Flask) | ✅ Completo |
+| `go.mod` | Go (latest minor) | ✅ Completo |
 
 ### Database engine
 
-| Marker | Engine | Status v2.0 |
+| Marker | Engine | Status v2.1 |
 |--------|--------|-------------|
 | `pdo_mysql`, `mysqli`, `mysql` in deps, `DB_CONNECTION=mysql` | MySQL/MariaDB | ✅ Completo |
-| `pg`, `psycopg2`, `asyncpg`, postgresql string | PostgreSQL | 🚧 Stub TODO v2.1 |
-| `better-sqlite3`, `sqlite3`, `.db` files | SQLite | 🚧 Stub TODO v2.1 |
-| `mongoose`, `mongodb`, `MONGO_URI` | MongoDB | 🚧 Stub TODO v2.1 |
+| `pg`, `psycopg2`, `asyncpg`, postgresql string | PostgreSQL 17.x | ✅ Completo |
+| `better-sqlite3`, `sqlite3`, `.db` files | SQLite | ✅ Completo |
+| `mongoose`, `mongodb`, `MONGO_URI` | MongoDB 8.x | ✅ Completo |
 
 ### Hosting profile
 
-| Marker | Profile | Status v2.0 |
+| Marker | Profile | Status v2.1 |
 |--------|---------|-------------|
-| `.htaccess` + cPanel hints (default fallback) | Netsons (shared hosting) | ✅ Completo |
-| `.htaccess` + Aruba indicators | Aruba | 🚧 Stub TODO v2.1 |
-| `vercel.json` | Vercel | 🚧 Stub TODO v2.1 |
-| `railway.json` o `nixpacks.toml` | Railway | 🚧 Stub TODO v2.1 |
+| `.htaccess` + cPanel hints (default fallback) | Netsons (cPanel shared hosting) | ✅ Completo |
+| `.htaccess` + Plesk indicators (`httpdocs/`) | Aruba (Plesk shared hosting) | ✅ Completo |
+| `vercel.json` | Vercel | ✅ Completo |
+| `railway.json` o `nixpacks.toml` | Railway | ✅ Completo |
 
 ### Transport email
 
-| Marker | Transport | Status v2.0 |
+| Marker | Transport | Status v2.1 |
 |--------|-----------|-------------|
-| `phpmailer/phpmailer` in composer | PHPMailer | ✅ Completo |
-| `nodemailer` in package.json | Nodemailer | 🚧 Stub TODO v2.1 |
-| `@aws-sdk/client-ses`, `@sendgrid/mail`, `mailgun.js` | SES/SendGrid/Mailgun | 🚧 Stub TODO v2.1 |
+| `phpmailer/phpmailer` / `symfony/mailer` in composer | PHPMailer / Symfony Mailer | ✅ Completo |
+| `nodemailer` in package.json | Nodemailer | ✅ Completo |
+| `@aws-sdk/client-sesv2` / `boto3` SES | AWS SES | ✅ Completo |
+| `@sendgrid/mail` | SendGrid (Twilio) | ✅ Completo |
+| `mailgun.js` / `mailgun-python` | Mailgun (EU/US) | ✅ Completo |
+| `postmark` SDK | Postmark | ✅ Completo |
+| Brevo (ex Sendinblue) SDK | Brevo | ✅ Completo |
 
 ## Pipeline intelligente (risparmio token)
 
