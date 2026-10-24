@@ -43,7 +43,7 @@ Detection rules are formalized in [skills/audit-deploy/detection-rules.md](skill
 | Phase | Model | Purpose |
 |-------|-------|---------|
 | 1. Pre-check | `haiku` | Single agent scans project, emits JSON feature flags (`has_login`, `has_db`, `has_email`, framework, hosting profile, …). Downstream skills are skipped based on these flags. |
-| 2. Audit | `sonnet` | **Up to 10 skills run in parallel** via Task tool. Each loads its `general.md` + relevant sub-files via Read. Each returns findings as structured JSON. |
+| 2. Audit | `sonnet` | **Up to 11 skills run in parallel** via Task tool. Each loads its `general.md` + relevant sub-files via Read. Each returns findings as structured JSON. |
 | 3. Scoring | `haiku` | One agent assigns 0–100 confidence, drops findings < 60, deduplicates across skills, writes `AUDIT-REPORT.md` from [skills/audit-deploy/templates/report-template.md](skills/audit-deploy/templates/report-template.md). |
 
 Opus is intentionally left free for the user's main work.

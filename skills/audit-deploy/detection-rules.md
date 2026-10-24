@@ -80,7 +80,7 @@ Tabelle marker → stack/framework/engine/hosting/transport usate dall'orchestra
 | Marker                                                  | Frontend rilevato      |
 |---------------------------------------------------------|------------------------|
 | Presenza di `<html>` files / template engine output     | web frontend           |
-| Pure-API (no `<html>`, solo route `/api/*`)             | no frontend → skip `audit-frontend`, `audit-mobile-ux`, `audit-seo` |
+| Pure-API (no `<html>`, solo route `/api/*`)             | no frontend → skip `audit-frontend`, `audit-mobile-ux`, `audit-seo`, `audit-design` |
 | Presenza `next.config.js` / `nuxt.config.ts` / `vite.config.*` | SPA / SSR framework |
 
 ## Skill applicabili — decision tree
@@ -91,7 +91,7 @@ Pseudo-logica usata dall'orchestrator dopo la pre-check:
 skills_to_run = []
 if profile.backend:           skills_to_run += [audit-backend]
 if profile.database:          skills_to_run += [audit-database]
-if profile.has_frontend:      skills_to_run += [audit-frontend, audit-mobile-ux, audit-seo]
+if profile.has_frontend:      skills_to_run += [audit-frontend, audit-mobile-ux, audit-seo, audit-design]
 if profile.has_user_data:     skills_to_run += [audit-security, audit-gdpr]
                               # has_user_data = login forms || user-table || cookies || analytics
 if profile.email_transport:   skills_to_run += [audit-email]

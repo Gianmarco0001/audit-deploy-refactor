@@ -178,7 +178,7 @@ In breve:
 - **Pipeline tier-mix**: Haiku (pre-check / scoring) + Sonnet (audit) per ottimizzare costi
 - **Progressive disclosure**: ogni skill carica solo i sub-file rilevanti allo stack rilevato
 - **Detection rules** formalizzate in [skills/audit-deploy/detection-rules.md](skills/audit-deploy/detection-rules.md)
-- **Sicurezza fix**: le 10 skill granulari **non hanno permesso `Edit`** — solo l'orchestrator applica fix dopo approval gate
+- **Sicurezza fix**: le 11 skill granulari **non hanno permesso `Edit`** — solo l'orchestrator applica fix dopo approval gate
 - **Path protetti**: `.env`, `composer.json`, `package.json`, `.htaccess`, `*.sql`, `**/database/migrations/**`, `bootstrap/app.php` richiedono sempre conferma
 
 ## Quando NON usare questo plugin

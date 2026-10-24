@@ -3,7 +3,7 @@ name: audit-deploy
 description: |
   Audit pre-deploy modulare e stack-aware. Orchestratore che rileva automaticamente lo stack
   del progetto (PHP/Laravel/Node/Python/Go, MySQL/Postgres/SQLite/Mongo, Netsons/Vercel/Railway)
-  e lancia in parallelo le 10 skill granulari rilevanti (backend, frontend, mobile UX, database,
+  e lancia in parallelo le 11 skill granulari rilevanti (backend, frontend, design, mobile UX, database,
   security OWASP, algorithms, SEO, GDPR, hosting, email). Pipeline tier-mix Haiku→Sonnet→Haiku
   con fix loop iterativo e approval gate sui finding critici. Usa quando: il progetto e' pronto
   per il deploy, dopo sessioni di vibe-coding, o per verifica periodica di sicurezza e qualita'.
@@ -15,7 +15,7 @@ argument-hint: [percorso-progetto] [--max-iter=N] [--approve-from=low|medium|hig
 
 # Audit Pre-Deploy Pack — Orchestratore
 
-Sei il Lead Auditor. Devi coordinare un audit completo del progetto nella directory corrente (o in $ARGUMENTS se specificato) prima del deploy, lanciando in parallelo le 10 skill granulari rilevanti in base allo stack rilevato.
+Sei il Lead Auditor. Devi coordinare un audit completo del progetto nella directory corrente (o in $ARGUMENTS se specificato) prima del deploy, lanciando in parallelo le 11 skill granulari rilevanti (audit-design compresa: rifinitura visiva, movimento, rilevatore Impeccable) in base allo stack rilevato.
 
 ## Configurazione (parsing da $ARGUMENTS)
 
@@ -96,7 +96,7 @@ Basandoti sul JSON del pre-check, decidi quali skill granulari attivare seguendo
 skills_to_run = []
 if backend != "none":          skills_to_run += [audit-backend]
 if database non vuoto:         skills_to_run += [audit-database]
-if has_html:                   skills_to_run += [audit-frontend, audit-mobile-ux, audit-seo]
+if has_html:                   skills_to_run += [audit-frontend, audit-mobile-ux, audit-seo, audit-design]
 if has_user_data || has_cookies || has_forms: skills_to_run += [audit-gdpr]
 if email_transport != "none":  skills_to_run += [audit-email]
 if hosting != "unknown":       skills_to_run += [audit-hosting]

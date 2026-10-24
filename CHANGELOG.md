@@ -4,6 +4,17 @@ Tutti i cambiamenti notevoli del plugin sono documentati qui.
 
 Il formato si basa su [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) e il versioning segue [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] — 2026-10
+
+### Nuova skill granulare: `audit-design`
+
+Controllo di qualità visiva e rifinitura dell'interfaccia, lanciato dall'orchestrator per ogni progetto con frontend (`has_html`).
+
+- **Checklist** (`skills/audit-design/checklists/design.md`, 8 aree, prefisso `DESIGN-*`): contrasto e leggibilità (anche placeholder e testo su superfici colorate, misura 65–75 caratteri, `text-wrap`), stati e interazioni (hover/focus/disabled/loading/errore/vuoto, area di tocco 44 px, testi dei pulsanti), tipografia (`tabular-nums`, gerarchia, niente testo a gradiente), superfici (raggi concentrici, ombre vs bordi, contorno delle immagini, niente card nidificate), icone (un set, stroke coerente, `currentColor`, niente emoji), movimento (`prefers-reduced-motion` con alternativa, mai `transition: all`, apertura più lenta della chiusura, sfalsamento < 300 ms, `scale(0.96)`), superfici del browser (focus, selezione, caret, scrollbar), segnali di interfaccia "generata".
+- **Fonti**, tenute solo le regole verificabili e generali: [Impeccable](https://github.com/pbakaus/impeccable) (craft floor, audit), [make-interfaces-feel-better](https://github.com/jakubkrehel/make-interfaces-feel-better), [transitions.dev / transitions-polish](https://github.com/jakubantalik/transitions.dev). Escluse le regole di gusto assoluto (es. "mai etichette sopra i titoli") che dipendono dal brief: le decisioni del progetto (DESIGN.md, PRODUCT.md, CLAUDE.md) hanno la precedenza.
+- **Rilevatore automatico opzionale**: se il sito gira in locale e la skill Impeccable è installata, lancia `impeccable detect --json` su 2-4 pagine a 1280 e 390 px; ogni risultato va verificato nel codice prima di diventare un finding.
+- Orchestrator e `detection-rules.md`: `audit-design` aggiunta al gruppo frontend (salta insieme a frontend/mobile-ux/seo sui progetti senza HTML). Ora le skill granulari sono 11.
+
 ## [2.1.0] — 2026-05
 
 ### Sub-file stub → checklist complete validate su doc ufficiali

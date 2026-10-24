@@ -1,7 +1,7 @@
 {
   "name": "audit-deploy-pack",
-  "description": "Audit pre-deploy modulare per progetti web. Stack-aware (PHP/Laravel/Node/Python/Go), DB-aware (MySQL/Postgres/SQLite/Mongo), hosting-aware (Netsons/Aruba/SiteGround/Vercel/Railway/AWS). 10 skill granulari invocabili singolarmente (audit-security, audit-seo, ecc.) o tramite orchestrator audit-deploy. Pipeline a 3 fasi con gestione intelligente dei modelli (Haiku pre-check, Sonnet audit parallelo, Haiku scoring) e ciclo iterativo di fix con approval gate sui finding critici.",
-  "version": "2.1.0",
+  "description": "Audit pre-deploy modulare per progetti web. Stack-aware (PHP/Laravel/Node/Python/Go), DB-aware (MySQL/Postgres/SQLite/Mongo), hosting-aware (Netsons/Aruba/SiteGround/Vercel/Railway/AWS). 11 skill granulari invocabili singolarmente (audit-security, audit-seo, ecc.) o tramite orchestrator audit-deploy. Pipeline a 3 fasi con gestione intelligente dei modelli (Haiku pre-check, Sonnet audit parallelo, Haiku scoring) e ciclo iterativo di fix con approval gate sui finding critici.",
+  "version": "2.2.0",
   "author": {
     "name": "Gianmarco Benedetti"
   }

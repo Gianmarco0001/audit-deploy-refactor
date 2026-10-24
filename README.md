@@ -1,6 +1,6 @@
 # Audit Deploy Pack — Plugin Claude Code
 
-Audit pre-deploy modulare e stack-aware per progetti web. Lancia 10 agenti specializzati in parallelo (oppure invoca singolarmente le skill granulari) per verificare backend, frontend, mobile UX, database, sicurezza OWASP, algoritmica, SEO, GDPR, hosting e email.
+Audit pre-deploy modulare e stack-aware per progetti web. Lancia 11 agenti specializzati in parallelo (oppure invoca singolarmente le skill granulari) per verificare backend, frontend, design, mobile UX, database, sicurezza OWASP, algoritmica, SEO, GDPR, hosting e email.
 
 ## Cosa fa
 
@@ -16,6 +16,7 @@ Audit pre-deploy modulare e stack-aware per progetti web. Lancia 10 agenti speci
 | 8 | GDPR | Garante italiano, cookie banner, privacy policy art.13 | `/audit-gdpr` |
 | 9 | Hosting | Limiti hosting stack-specific (Netsons/Vercel/Railway/AWS) | `/audit-hosting` |
 | 10 | Email | SPF/DKIM/DMARC, deliverability, transport (PHPMailer/Nodemailer/SES/SendGrid) | `/audit-email` |
+| 11 | Design | Rifinitura visiva: contrasto (anche placeholder), stati, tipografia, superfici, icone, movimento, segnali di UI "generata"; rilevatore Impeccable opzionale | `/audit-design` |
 
 Tutti insieme via orchestrator: `/audit-deploy`
 
