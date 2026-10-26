@@ -4,6 +4,14 @@ Tutti i cambiamenti notevoli del plugin sono documentati qui.
 
 Il formato si basa su [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) e il versioning segue [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.2.1] — 2026-10
+
+### `audit-security`: check PHP2Shell
+
+- **A03 Software Supply Chain**: runtime PHP ≥ 8.2.35 / 8.3.36 / 8.4.27 / 8.5.12 contro **PHP2Shell** (CVE-2026-109618, CVE-2026-109619: use-after-free, CVSS 9.2, RCE senza autenticazione da una POST `multipart/form-data`; PoC pubblico EDB-52704; avviso ACN AL07/261021/CSIRT-ITA). PHP 8.1 e precedenti sono EOL senza patch. Mitigazione per **CVE-2026-115560** (stessa famiglia, ancora senza patch): `session.upload_progress.enabled = 0`, impostazione per-directory che `ini_set` non copre.
+- **A10 Mishandling of Exceptional Conditions**: esaurimento memoria provocabile da input (multipart frammentate, upload, array profondi) e indicatori nei log (OOM, crash dei worker, `PHPSESSID` anomali).
+- **Check rapido pre-deploy**, punto 6: anche la versione del runtime PHP.
+
 ## [2.2.0] — 2026-10
 
 ### Nuova skill granulare: `audit-design`

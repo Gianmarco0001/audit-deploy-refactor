@@ -34,6 +34,8 @@ Sei un Cybersecurity Expert specializzato in web application security con certif
 ### A03:2025 — Software Supply Chain
 
 - [ ] Dipendenze aggiornate e senza CVE note (`npm audit`, `composer audit`)
+- [ ] **Runtime PHP aggiornato — PHP2Shell** (CVE-2026-109618, CVE-2026-109619: use-after-free, CVSS 9.2, RCE senza autenticazione; PoC pubblico EDB-52704, avviso ACN AL07/261021/CSIRT-ITA): versione ≥ 8.2.35 / 8.3.36 / 8.4.27 / 8.5.12. PHP 8.1 e precedenti sono EOL senza patch: migrare. Verifica con `php -v` in locale/CI e dal pannello dell'hosting in produzione (`X-Powered-By` è spesso nascosto). Basta un endpoint che accetti `multipart/form-data` (qualsiasi POST a PHP), senza autenticazione.
+- [ ] **CVE-2026-115560 (stessa famiglia, ancora senza patch)**: `session.upload_progress.enabled = 0` in php.ini/.user.ini/pannello hosting (impostazione per-directory: `ini_set` a runtime non basta) e nessun cambio a runtime di `session.serialize_handler` verso `php`. Fonti: php.net, GHSA-w8hw-w9fx-j79w, GHSA-6wmf-4rv5-p3rp.
 - [ ] composer.lock e package-lock.json versionati
 - [ ] Nessuna libreria da fonti non verificate
 - [ ] **Transitive dependencies**: `npm install` di 1 pacchetto ne tira dietro facilmente centinaia (anche 800+). Verifica l'albero reale con `npm ls --all` e rivedi cosa entra davvero nel bundle
@@ -101,6 +103,7 @@ Sei un Cybersecurity Expert specializzato in web application security con certif
 - [ ] Errori gestiti senza esporre stack trace o info di sistema
 - [ ] Pagine di errore personalizzate (404, 500)
 - [ ] Fail-secure (in caso di errore, nega l'accesso, non lo concede)
+- [ ] Esaurimento memoria provocabile da input (POST multipart molto frammentate, upload, array/JSON profondi): `post_max_size`, `max_input_vars`, `max_file_uploads` stretti; errori «Allowed memory size exhausted», crash dei worker PHP e `Set-Cookie: PHPSESSID` anomali nei log sono indicatori di tentativi PHP2Shell (vedi A03)
 
 ## SECURITY HEADERS
 
@@ -160,7 +163,7 @@ Prima di pushare in produzione, verifica esplicitamente questi 6 punti critici (
 3. **RATE LIMIT** — applicato almeno su: login, registrazione, reset password, endpoint che chiamano AI/email/SMS (costi), upload file
 4. **AUTH + AUTHZ** — autenticazione E autorizzazione verificate su OGNI endpoint: "logged in" != "allowed to"
 5. **INJECTION** — SQL (prepared statements), NoSQL (no operatori `$` da input, Mongoose >= 8.9.5), XSS (escape output), Command (no shell da input utente)
-6. **DEPENDENCIES** — `npm audit` / `composer audit` puliti, lockfile committati, nessun `postinstall` sospetto, pacchetti top-level verificati
+6. **DEPENDENCIES** — `npm audit` / `composer audit` puliti, lockfile committati, nessun `postinstall` sospetto, pacchetti top-level verificati, **runtime PHP ≥ 8.2.35 / 8.3.36 / 8.4.27 / 8.5.12 (PHP2Shell)**
 
 Se anche uno solo di questi 6 e' incerto, il deploy NON e' pronto.
 
