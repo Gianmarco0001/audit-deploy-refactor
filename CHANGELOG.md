@@ -4,6 +4,16 @@ Tutti i cambiamenti notevoli del plugin sono documentati qui.
 
 Il formato si basa su [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) e il versioning segue [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.3.0] — 2026-10
+
+### Integrazione con la skill `security-audit` di Cloudflare
+
+- **Nuova FASE 2-bis dell'orchestrator**: dopo le skill granulari, `audit-deploy` avvia la skill [`security-audit` di Cloudflare](https://github.com/cloudflare/security-audit-skill) (MIT, da installare a parte) in full audit mode, profilo `quick`, massimo 20 agenti, output in `~/security-audit-skill/<repo>/run-<N>` fuori dal repository. Le passa i finding di `audit-security` come candidati da validare. I suoi `confirmed` entrano nel report come `CF-*` già verificati, i `needs_validation` come `DA-VERIFICARE`, i `rejected` tolgono i finding che smentiscono. Opzioni: `--no-cloudflare`, `--cf-profile=quick|standard|deep`, `--cf-budget=N`. Se la skill non è installata la fase viene saltata e il report lo dice.
+- **`/audit-security` lanciata da sola** fa lo stesso dopo la checklist; come sotto-agente di `audit-deploy` non la avvia (lo fa l'orchestrator).
+- **Verifica avversaria al posto del solo punteggio**: per ogni CRITICO/ALTO/MEDIO un agente nuovo (sonnet) apre il codice e prova a smentirlo (`confermato`, `smentito`, `declassato`, `da-verificare`). Haiku resta per dedup, punteggio dei BASSO e report.
+- **Principi di evidenza in `audit-security`** (ripresi da Cloudflare): un finding deve dire chi attacca, quale controllo supera e che danno fa; una best practice mancante non è una vulnerabilità; quello che dipende da hosting, CDN o servizi esterni e non si vede nel repository diventa `DA-VERIFICARE` senza gravità; scala di gravità con esempi concreti; fix minimo con test di regressione; niente prove dal vivo.
+- **Report**: riga Cloudflare nel riepilogo, campo `$CLOUDFLARE_RUN`, nuova sezione «Da verificare». Nessun fix automatico sui `DA-VERIFICARE`.
+
 ## [2.2.1] — 2026-10
 
 ### `audit-security`: check PHP2Shell

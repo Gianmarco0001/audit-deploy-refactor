@@ -5,6 +5,7 @@
 **Iterazione**: v$ITERATION
 **Skill eseguite**: $SKILLS_RUN
 **Skill skipped**: $SKILLS_SKIPPED (motivo nei log)
+**Cloudflare security-audit**: $CLOUDFLARE_RUN (profilo, cartella del run, copertura completa o parziale)
 
 ---
 
@@ -22,6 +23,7 @@
 | GDPR & Cookie | -/- | 0 | 0 | 0 | 0 |
 | Hosting | -/- | 0 | 0 | 0 | 0 |
 | Email | -/- | 0 | 0 | 0 | 0 |
+| Cloudflare security-audit | -/- | 0 | 0 | 0 | 0 |
 
 **Totale findings**: 0
 
@@ -46,6 +48,12 @@ BLOCCO DEPLOY / DEPLOY CON RISERVA / PRONTO PER DEPLOY
 (nessuno / lista)
 
 ## Findings Bassi (miglioramenti)
+
+(nessuno / lista)
+
+## Da verificare (dipendono da configurazione fuori dal codice)
+
+Senza gravita': per ognuno, il fatto preciso da controllare e come controllarlo (hosting, Cloudflare, servizi esterni).
 
 (nessuno / lista)
 

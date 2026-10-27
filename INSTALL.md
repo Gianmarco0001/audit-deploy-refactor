@@ -37,6 +37,16 @@ ls ~/.claude/commands/ | grep audit-
 
 Dovresti vedere 11 skill (`audit-deploy`, `audit-backend`, `audit-frontend`, `audit-mobile-ux`, `audit-database`, `audit-security`, `audit-algorithms`, `audit-seo`, `audit-gdpr`, `audit-hosting`, `audit-email`) e gli 11 corrispondenti slash command `.md`.
 
+### Dipendenza opzionale — Cloudflare `security-audit`
+
+`/audit-deploy` e `/audit-security` usano anche la skill [`security-audit` di Cloudflare](https://github.com/cloudflare/security-audit-skill) (MIT) per un secondo passaggio di sicurezza più profondo. Non è inclusa nel pacchetto: installala a parte.
+
+```bash
+npx skills add https://github.com/cloudflare/security-audit-skill --skill security-audit --global
+```
+
+Richiede Node.js per i suoi validatori. Senza la skill l'audit funziona lo stesso e il report indica che il passaggio è stato saltato.
+
 ### Metodo 2 — One-liner Linux/macOS
 
 ```bash
